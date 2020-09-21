@@ -42,7 +42,7 @@ char *get_history(List *list, int id)
 void print_history(List *list)
 {
   Item *current = list->root->next;
-  while(curr != 0)
+  while(current != 0)
     {
       printf("%d. %s\n",current->id,current->str);
       current = current->next;
