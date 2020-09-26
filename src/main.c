@@ -3,7 +3,7 @@
 #include "tokenizer.h"
 #include "history.h"
 
-void tokenScanner(List *list, char **tokens);
+void tokenScanner(List *list, char **tokens)
 
 void tokenScanner(List *list, char **tokens)
 {
@@ -37,10 +37,10 @@ int main
   List *list = init_history();
   char input[50];
 
-  while(1)
+  while(1) /*Will continue using the menu until it returns 0*/
     {
       printf("Please selct from one of the following options:\n");
-      printf("1. Input Token             == 't'\n");
+      printf("1. Input Tokens            == 'i'\n");
       printf("2. View history            == 'h'\n");
       printf("3. View particular History == '!'\n");
       printf("3. Release history         == 'f'\n");
@@ -48,37 +48,47 @@ int main
 
       fgets(input,50,stdin);
 
-      if(input[0] == 't')
+      if(input[0] == "i") /*Asks the user for the current sentence to use*/
 	{
 	  printf("Please input the sentence that you want to use:\n");
+	  printf("$ ");
 	  fgets(input, 50, stdin);
 	  char **tokens = tokenize(input);
 	  tokenScanner(history, tokens);
+	  add_history(history,tokens);
 	  print_tokens(tokens);
 	  free_tokens(tokens);
 	}
-      else if(input[0] == 'h')
+      else if(input[0] == "h") /*Prints the entire history so far*/
 	{
 	  printf("Printing the history...");
 	  print_history(list);
 	}
-      else if(input[0] == '!')
+      else if(input[0] == "!") /*Recollects a particlar part of the history*/
 	{
 	  printf("Recollecting a particular history...");
-	  printf("%s\n", get_history(list, input[1]-48));
+	  char *past = get_history(history,atoi(input+1));
+	  char **tokens = tokenize(past);
+
+	  printf("%s\n", past);
+
+	  printf("Tokenized version :\n");
+	  print_tokens(tokens);
+	  free_tokens(tokens);
 	}
-      else if(input[0] == 'f')
+      else if(input[0] == "f") /*Frees the history so far*/
 	{
 	  printf("Freeing the current history...");
 	  free_history(list);
+	  printf("Done!");
 	}
-      else if(input[0] == 'q')
+      else if(input[0] == "q") /*Quits the program*/
 	{
 	  printf("See you later, Bye!");
 	  free_history(list);
 	  return 0;
 	}
-      else
+      else /*Only for when the user inputs something other than the above*/
 	{
 	  printf("ERROR! Invalid option!");
 	}
