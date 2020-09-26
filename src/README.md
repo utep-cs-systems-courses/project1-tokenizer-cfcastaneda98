@@ -8,7 +8,7 @@ by using two additional files called tokenizer and history that will help
 implement this functions. Main acts as a menu for the user and is the basis
 for all of the commands.
 
-#Files:
+# Files:
 
 The following are the list of files included in this lab, as well as the
 overall purpose for their inclusion:
@@ -23,7 +23,7 @@ assigned slots for the user to recall their previous tokens.
 -history.h: draw.h: Header file containing all the declarations of the
 relevant methods used in history.c.
 
-#How to Compile and Run:
+# How to Compile and Run:
 
 Follow these steps to make sure you can compile and run the program:
 
