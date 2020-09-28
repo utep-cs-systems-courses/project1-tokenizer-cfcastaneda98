@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "history.h"
+#include "tokenizer.h"
 
 List* init_history()
 {
@@ -20,7 +21,7 @@ void add_history(List *list, char*str)
       id++;
     }
   current->next = malloc(sizeof(Item)); /*Assigns a memory slot while adding the string*/
-  current->next->str = str;
+  current->next->str = copy_str(str, string_length(str));
   current->next->id = id;
 }
 

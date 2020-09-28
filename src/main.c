@@ -7,20 +7,22 @@
 
 int length(char *str) /*Method that finds and returns the length of a string*/
 {
+
   char *copy = str;
 
   while(*copy){
     copy++;
   }
-
-  int value = copy - str;   
-
+  int value = copy - str;
   return value;
 }
+
+
 
 int main()
 {
   printf("Welcome to the Tokenizer program! Let's get started!");
+
   List *list = init_history();
   char input[Max_Size];
   int active = 1;
@@ -34,16 +36,15 @@ int main()
       printf("3. Release history         == 'f'\n");
       printf("4. Quit                    == 'q'\n");
       printf("$");
-
       fgets(input,Max_Size,stdin);
       int stringLen = length(input);
-
-      if(input[0] == 'i') /*Asks the user for the current sentence to use*/
+      if(input[0] == 'i')  /*Asks the user for the current sentence to use*/
 	{
 	  printf("Please input the sentence that you want to use:\n");
 	  printf("$ ");
 	  fgets(input, Max_Size, stdin);
 	  char **tokens = tokenize(input);
+	  print_tokens(tokens);
 	  add_history(list,input);
 	  print_tokens(tokens);
 	  free_tokens(tokens);
@@ -53,16 +54,17 @@ int main()
 	  printf("Printing the history...");
 	  print_history(list);
 	}
-      else if(input[0] == '!' && stringLen == 2 && (input[1] > '0') ) /*Recollects a particlar part of the history*/
+
+      else if(input[0] == '!' ) /*Recollects a particlar part of the history*/
 	{
 	  printf("Recollecting a particular history...");
-	  int h = input[1]-'0';
-	  char *past = get_history(list,h);
+	  char *past = get_history(list,atoi(input+1));
 	  char **tokens = tokenize(past);
 
-	  printf("%s\n", past);
 
+	  printf("%s\n", past);
 	  printf("Tokenized version :\n");
+	  
 	  print_tokens(tokens);
 	  free_tokens(tokens);
 	}
@@ -84,3 +86,5 @@ int main()
 	}
     }
 }
+
+
